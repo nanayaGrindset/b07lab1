@@ -1,20 +1,35 @@
+import java.io.File;
+import java.io.IOException;
+
 public class Driver {
 
-    public static void main(String [] args) {
-        Polynomial p = new Polynomial();
-        System.out.println(p.evaluate(3));
-        double [] c1 = {6,0,0,5};
-        Polynomial p1 = new Polynomial(c1);
-        double [] c2 = {0,-2,0,0,-9};
-        Polynomial p2 = new Polynomial(c2);
-        Polynomial s = p1.add(p2);
-        System.out.println("s(0.1) = " + s.evaluate(0.1));
-        
-        if (s.hasRoot(1)) {
-            System.out.println("1 is a root of s");
-        } else {
-            System.out.println("1 is not a root of s");
-        }
+    public static void main(String [] args) throws IOException {
+        double[] c1 = {5, -7, 6, 9};
+        int[] e1 = {10, 11, 12, 13};
+
+        double[] c2 = {1, -2, 4, -3, -5};
+        int[] e2 = {1, 2, 3, 10, 11};
+
+        Polynomial p1 = new Polynomial(c1, e1);
+        Polynomial p2 = new Polynomial(c2, e2);
+        Polynomial p3 = p1.multiply(p2);
+        System.out.println("p3 = p1 * p2 (multiply):");
+        p3.printInfo();
+        File testFile = new File("testing.txt");
+        Polynomial imported = new Polynomial(testFile);
+        System.out.println("Importing from testing.txt:");
+        imported.printInfo();
+
+        p3.saveToFile("output");
+
+        System.out.println("Saved p3 to output.txt");
+        System.out.println("Importing p3 from output.txt:");
+        Polynomial p4 = new Polynomial(new File("output.txt"));
+        p4.printInfo();
+
+        System.out.println("p1 + p2 (add):");
+        Polynomial p5 = p1.add(p2);
+        p5.printInfo();
     }
 
 }
