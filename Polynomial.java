@@ -106,6 +106,8 @@ public class Polynomial {
 
     public Polynomial add(Polynomial otherPoly) {
         int i = 0; int j = 0;
+        mergeSort(this.expos, this.coeffs);
+        mergeSort(otherPoly.expos, otherPoly.coeffs);
         int maxSize = this.expos.length + otherPoly.expos.length;
         int tempIndex = 0;
         int tempExpos[] = new int[maxSize];
@@ -153,12 +155,8 @@ public class Polynomial {
             finalCoeff[k] = tempCoeff[k];
             finalExpos[k] = tempExpos[k];
         }
-        Polynomial t = new Polynomial(finalCoeff, finalExpos);
         return new Polynomial(finalCoeff, finalExpos);
     }
-
-    // 2 8 10 12    : j
-    // 2 3 5  8 13 15     : i
 
     public double evaluate(double x) {
         double sum = 0;
